@@ -1,0 +1,49 @@
+name: GitHub_Action_CI
+
+on:
+  push:
+    branches:
+    - main
+    - develop
+    
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Lint
+        run: |
+            chmod +x ./gradlew
+            ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+        
+      - name: Upload Lint  
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-results-debug.html
+          path: app/lint/reports/lint-results-debug.html
+
+      - name: Build
+        run: ./gradlew assembleDebug
+        
+      - name: Upload APK  
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Run Test
+        run: ./gradlew -Pci --console=plain :app:testDebug
+        
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: index.html
+          path: app/build/reports/tests/testDebugUnitTest/index.html
