@@ -2,6 +2,10 @@
 buildscript {
     dependencies {
         classpath(deps.Plugins.safeArgs)
+        classpath(deps.Plugins.gradlePlugin)
+    }
+    repositories {
+        mavenCentral()
     }
 }
 

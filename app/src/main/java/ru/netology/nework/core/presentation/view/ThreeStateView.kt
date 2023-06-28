@@ -22,7 +22,7 @@ class ThreeStateView @JvmOverloads constructor(
 
     init {
         val inflater = LayoutInflater.from(context)
-        binding = ThreeStateViewBinding.inflate(inflater, this, false)
+        binding = ThreeStateViewBinding.inflate(inflater, this, true)
         this.isVisible = false
         setAttrs(attrs)
     }
@@ -55,6 +55,8 @@ class ThreeStateView @JvmOverloads constructor(
 
     private fun showContent() {
         this.isVisible = false
+        binding.errorContainer.isVisible = false
+        binding.loading.isVisible = false
     }
 
     private fun showError(message: String) {

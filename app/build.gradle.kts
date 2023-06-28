@@ -92,4 +92,5 @@ dependencies {
     implementation(Dependencies.NavDeps.uiKtx)
 
     implementation(Dependencies.SerializationDeps.serialization)
+    implementation(Dependencies.ImagePickerDeps.imagePicker)
 }

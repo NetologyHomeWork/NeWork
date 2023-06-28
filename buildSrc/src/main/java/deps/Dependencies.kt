@@ -76,4 +76,10 @@ object Dependencies {
 
         const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion"
     }
+
+    object ImagePickerDeps {
+        const val imagePickerVersion = "2.1"
+
+        const val imagePicker = "com.github.dhaval2404:imagepicker:$imagePickerVersion"
+    }
 }
