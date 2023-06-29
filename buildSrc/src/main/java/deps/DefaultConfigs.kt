@@ -9,4 +9,5 @@ object DefaultConfigs {
 
     const val baseUrl = "BASE_URL"
     const val baseUrlValue = "\"https://netomedia.ru/\""
+    const val isLogEnabled = "IS_LOG_ENABLED"
 }
