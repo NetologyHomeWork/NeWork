@@ -2,11 +2,12 @@ import deps.DefaultConfigs
 import deps.Dependencies
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("kotlinx-serialization")
-    id("androidx.navigation.safeargs.kotlin")
+    id(deps.FeaturePlugins.androidApplication)
+    kotlin(deps.FeaturePlugins.kotlinAndroid)
+    kotlin(deps.FeaturePlugins.kotlinKapt)
+    id(deps.FeaturePlugins.kotlinxSerialization)
+    id(deps.FeaturePlugins.safeArgs)
+    id(deps.FeaturePlugins.hiltAndroid)
 }
 
 @Suppress("UnstableApiUsage")
@@ -31,6 +32,7 @@ android {
             isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", DefaultConfigs.baseUrl, DefaultConfigs.baseUrlValue)
+            buildConfigField("boolean", DefaultConfigs.isLogEnabled, "false")
         }
         debug {
             isMinifyEnabled = false
@@ -38,6 +40,7 @@ android {
             isDebuggable = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", DefaultConfigs.baseUrl, DefaultConfigs.baseUrlValue)
+            buildConfigField("boolean", DefaultConfigs.isLogEnabled, "true")
         }
     }
     compileOptions {
@@ -46,6 +49,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -83,4 +90,6 @@ dependencies {
 
     implementation(Dependencies.NavDeps.navFragmentKtx)
     implementation(Dependencies.NavDeps.uiKtx)
+
+    implementation(Dependencies.SerializationDeps.serialization)
 }
