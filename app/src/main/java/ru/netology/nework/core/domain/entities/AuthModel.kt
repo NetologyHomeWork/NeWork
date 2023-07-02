@@ -1,4 +1,4 @@
-package ru.netology.nework.core.domain
+package ru.netology.nework.core.domain.entities
 
 import kotlinx.serialization.Serializable
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.json.Json
-import ru.netology.nework.core.domain.AuthModel
+import ru.netology.nework.core.domain.entities.AuthModel
 import ru.netology.nework.core.domain.SettingsDataSource
 import javax.inject.Inject
 import javax.inject.Singleton

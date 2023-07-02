@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">NeWork</string>
     <string name="retry">Повторить</string>
+    <string name="delete">delete</string>
+    <string name="enter_your_name">Введите Ваше имя</string>
+    <string name="enter_your_login">Введите логин</string>
+    <string name="enter_your_password">Введите пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="sign_in">Войти</string>
+    <string name="create_account"><u>Если у Вас еще нет аккаунта нажмите чтобы создать</u></string>
+    <string name="error_connection">Ошибка соединения</string>
+    <string name="error_network_connection">Отсутствует подключение к интернету</string>
+    <string name="error_server_connection">Внутренняя ошибка сервера. Повторите запрос позже</string>
+    <string name="error_incorrect_password">Неверный логин или пароль. Проверьте правильность ввода</string>
+    <string name="error_input">Полк для ввода не может быть пустым</string>
+    <string name="understand">Понятно</string>
+    <string name="error_account_already_exist">Аккаунт уже существует, используйте другой логин для регистрации</string>
+    <string name="error_password_mismatch">Введенные Вами пароли не совпадают</string>
+    <string name="error_load_image">При загрузке картинки произошла ошибка</string>
+    <string name="camera">Камера</string>
+    <string name="gallery">Галерея</string>
 </resources>

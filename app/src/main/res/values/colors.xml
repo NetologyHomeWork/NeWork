@@ -10,4 +10,9 @@
 
     <color name="default_text_color">#FF808080</color>
     <color name="dark_blue">#160047</color>
+    <color name="color_error">#FF3B30</color>
+    <color name="color_link">#0A84FF</color>
+    <color name="black_60">#99000000</color>
+    <color name="grey">#8F8F8F</color>
+    <color name="bg_bottom_sheet">#E6E5E5</color>
 </resources>

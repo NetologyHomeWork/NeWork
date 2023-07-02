@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeAppearanceOverlay.Avatar" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="RoundedInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="android:textColorHint">@color/default_text_color</item>
+        <item name="hintTextColor">@color/purple_700</item>
+        <item name="errorTextColor">@color/color_error</item>
+        <item name="boxStrokeErrorColor">@color/color_error</item>
+        <item name="errorIconTint">@color/color_error</item>
+        <item name="errorIconDrawable">@drawable/ic_error_input</item>
+        <item name="endIconTint">@color/default_text_color</item>
+        <item name="endIconMode">clear_text</item>
+    </style>
+</resources>
