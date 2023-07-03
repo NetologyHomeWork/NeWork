@@ -3,11 +3,11 @@ package ru.netology.nework.login.presentation.login
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.nework.R
 import ru.netology.nework.core.utils.hideKeyboard
@@ -86,7 +86,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
 
                 LoginViewModel.LoginCommands.NavigateToMainScreen -> {
-                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.nav_main, null, navOptions {
+                        popUpTo(R.id.nav_auth) { inclusive = true }
+                    })
                 }
             }
         }

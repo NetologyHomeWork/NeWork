@@ -26,6 +26,10 @@ class AppAuthDataSource @Inject constructor(
     override val authFlow: StateFlow<AuthModel?>
         get() = _authFlow.asStateFlow()
 
+    init {
+        getAuth()
+    }
+
     override fun setAuth(authModel: AuthModel) {
         val str = Json.encodeToString(AuthModel.serializer(), authModel)
         prefs.edit { putString(AUTH_KEY, str) }
