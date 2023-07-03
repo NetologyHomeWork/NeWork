@@ -3,7 +3,6 @@ package ru.netology.nework.login.presentation.registration
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
@@ -11,6 +10,8 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -99,7 +100,9 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                     textInputLayout.error = getString(R.string.error_input)
                 }
                 RegistrationViewModel.RegistrationCommands.NavigateToMainScreen -> {
-                    Toast.makeText(requireContext(), "Success!!!", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.nav_main, null, navOptions {
+                        popUpTo(R.id.nav_auth) { inclusive = true }
+                    })
                 }
             }
         }

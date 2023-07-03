@@ -20,4 +20,8 @@
     <string name="error_load_image">При загрузке картинки произошла ошибка</string>
     <string name="camera">Камера</string>
     <string name="gallery">Галерея</string>
+    <string name="main">Главная</string>
+    <string name="events">События</string>
+    <string name="create">Создать</string>
+    <string name="profile">Профиль</string>
 </resources>
