@@ -2,7 +2,10 @@ package ru.netology.nework.core.presentation
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.shareIn
 import ru.netology.nework.core.domain.SettingsDataSource
 import ru.netology.nework.core.presentation.base.BaseViewModel
 import ru.netology.nework.core.presentation.base.Commands

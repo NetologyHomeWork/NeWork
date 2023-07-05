@@ -17,4 +17,6 @@ abstract class BaseViewModel<T : Commands> : ViewModel() {
     protected val _threeStateFlow = MutableStateFlow<ThreeStateView.State>(
         ThreeStateView.State.Content
     )
+
+    protected val _swipeRefreshingFlow = MutableStateFlow(false)
 }

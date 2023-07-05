@@ -24,4 +24,6 @@
     <string name="events">События</string>
     <string name="create">Создать</string>
     <string name="profile">Профиль</string>
+    <string name="edit">Редактировать</string>
+    <string name="remove">Удалить</string>
 </resources>

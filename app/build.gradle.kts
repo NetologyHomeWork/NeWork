@@ -93,4 +93,5 @@ dependencies {
 
     implementation(Dependencies.SerializationDeps.serialization)
     implementation(Dependencies.ImagePickerDeps.imagePicker)
+    implementation(Dependencies.SwipeRefreshLayout.swipeRefresh)
 }

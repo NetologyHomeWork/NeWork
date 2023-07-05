@@ -82,4 +82,9 @@ object Dependencies {
 
         const val imagePicker = "com.github.dhaval2404:imagepicker:$imagePickerVersion"
     }
+
+    object SwipeRefreshLayout {
+        const val swipeRefreshVersion = "1.1.0"
+        const val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion"
+    }
 }
