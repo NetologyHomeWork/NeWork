@@ -26,4 +26,5 @@
     <string name="profile">Профиль</string>
     <string name="edit">Редактировать</string>
     <string name="remove">Удалить</string>
+    <string name="no_job">Не работает</string>
 </resources>
