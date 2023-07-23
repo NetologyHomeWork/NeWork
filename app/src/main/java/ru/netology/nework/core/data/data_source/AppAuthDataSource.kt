@@ -1,4 +1,4 @@
-package ru.netology.nework.core.data
+package ru.netology.nework.core.data.data_source
 
 import android.content.Context
 import android.content.SharedPreferences

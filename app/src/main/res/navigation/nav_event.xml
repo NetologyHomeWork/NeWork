@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_event"
     app:startDestination="@id/eventsFragment">
 
     <fragment
         android:id="@+id/eventsFragment"
-        android:name="ru.netology.nework.events.EventsFragment"
-        android:label="EventsFragment" />
+        android:name="ru.netology.nework.events.presentation.events.EventsFragment"
+        android:label="EventsFragment"
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_eventsFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="ru.netology.nework.events.presentation.detail.EventDetailFragment"
+        android:label="EventDetailFragment"
+        tools:layout="@layout/fragment_event_detail" >
+
+        <argument
+            android:name="eventId"
+            app:argType="long" />
+    </fragment>
 </navigation>

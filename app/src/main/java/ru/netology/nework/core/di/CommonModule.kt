@@ -14,7 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import ru.netology.nework.BuildConfig
-import ru.netology.nework.core.data.AppAuthDataSource
+import ru.netology.nework.core.data.data_source.AppAuthDataSource
 import ru.netology.nework.core.domain.SettingsDataSource
 import ru.netology.nework.core.utils.CoroutineDispatchers
 import java.util.concurrent.TimeUnit

@@ -33,14 +33,16 @@ fun List<PostDto>.toListPostEntity(): List<Post> {
     return this.map { it.toPostEntity() }
 }
 
-private fun CoordinatesDto.toCordsEntity(): Coordinates {
+fun CoordinatesDto?.toCordsEntity(): Coordinates? {
+    if (this == null) return null
     return Coordinates(
         lat = this.lat,
         long = this.long
     )
 }
 
-private fun AttachmentDto.toAttachmentEntity(): Attachment {
+fun AttachmentDto?.toAttachmentEntity(): Attachment? {
+    if (this == null) return null
     return Attachment(
         url = this.url,
         type = AttachmentType.parse(this.type)
