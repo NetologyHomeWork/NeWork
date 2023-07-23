@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".create.presentation.success.SuccessFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        app:srcCompat="@drawable/ic_success" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginVertical="8dp"
+        tools:text="@string/post_success_saving" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_to_post_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:layout_marginVertical="8dp"
+        android:text="@string/to_post_list"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:minWidth="150dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_create_another"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:layout_marginVertical="8dp"
+        android:text="@string/create_another"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:minWidth="150dp" />
+
+</LinearLayout>

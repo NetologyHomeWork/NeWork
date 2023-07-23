@@ -136,6 +136,15 @@ class PostsViewModel @Inject constructor(
         }
     }
 
+    fun onPostUpdated(postId: Long, content: String) {
+        val mutable = mutableListOf<PostItem>().apply { addAll(postsFlow.value) }
+        val index = mutable.indexOfFirst { it.id == postId }
+        if (index == -1) return
+        val temp = mutable[index]
+        mutable[index] = temp.copy(content = content)
+        _postsFlow.tryEmit(mutable)
+    }
+
     private suspend fun fillPostList() {
         delay(ThreeStateView.DELAY_LOADING)
         when (val resource = getPostsUseCase.execute()) {

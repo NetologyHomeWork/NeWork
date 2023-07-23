@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_eventsFragment_to_eventDetailFragment"
             app:destination="@id/eventDetailFragment" />
+
+        <action
+            android:id="@+id/action_eventsFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
     </fragment>
 
     <fragment
@@ -24,5 +28,24 @@
         <argument
             android:name="eventId"
             app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editEventFragment"
+        android:name="ru.netology.nework.create.presentation.edit.event.EditEventFragment"
+        android:label="EditEventFragment"
+        tools:layout="@layout/fragment_create_event" >
+
+        <argument
+            android:name="eventId"
+            app:argType="long" />
+
+        <argument
+            android:name="content"
+            app:argType="string" />
+
+        <argument
+            android:name="dateTime"
+            app:argType="string" />
     </fragment>
 </navigation>

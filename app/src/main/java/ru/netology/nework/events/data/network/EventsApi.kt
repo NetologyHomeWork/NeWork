@@ -4,7 +4,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import ru.netology.nework.events.data.dto.EventDto
+import ru.netology.nework.core.data.dto.EventDto
 
 interface EventsApi {
 

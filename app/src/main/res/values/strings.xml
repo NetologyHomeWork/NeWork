@@ -27,4 +27,19 @@
     <string name="edit">Редактировать</string>
     <string name="remove">Удалить</string>
     <string name="no_job">Не работает</string>
+    <string name="choose_to_create">Выберите что вы хотите создать</string>
+    <string name="post">Пост</string>
+    <string name="event">Событие</string>
+    <string name="no_user_data">Не удалось загрузить данные пользователя</string>
+    <string name="post_success_saving">Пост успешно сохранен</string>
+    <string name="event_success_saving">Событие успешно сохранен</string>
+    <string name="to_post_list">К списку постов</string>
+    <string name="create_another">Создать еще</string>
+    <string name="error">Ошибка</string>
+    <string name="choose_date">Выберите дату</string>
+    <string name="date">%1$d.%2$d.%3$d</string>
+    <string name="empty_post_content_error">Содержание поста не может быть пустым</string>
+    <string name="empty_event_content_error">Содержание события не может быть пустым</string>
+    <string name="empty_date_error">Не выбрана дата проведения события</string>
+    <string name="event_data_time">Дата проведения: %1$s</string>
 </resources>

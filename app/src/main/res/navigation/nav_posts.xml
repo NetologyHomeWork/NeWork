@@ -12,6 +12,10 @@
         tools:layout="@layout/fragment_posts">
 
         <action
+            android:id="@+id/action_postsFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+
+        <action
             android:id="@+id/action_postsFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment" />
     </fragment>
@@ -25,5 +29,20 @@
         <argument
             android:name="postId"
             app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="ru.netology.nework.create.presentation.edit.post.EditPostFragment"
+        android:label="EditPostFragment"
+        tools:layout="@layout/fragment_create_post" >
+
+        <argument
+            android:name="postId"
+            app:argType="long" />
+
+        <argument
+            android:name="content"
+            app:argType="string" />
     </fragment>
 </navigation>

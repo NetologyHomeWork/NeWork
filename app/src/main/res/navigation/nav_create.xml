@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_create"
-    app:startDestination="@id/createFragment">
+    app:startDestination="@id/optionFragment">
 
     <fragment
-        android:id="@+id/createFragment"
-        android:name="ru.netology.nework.create.CreateFragment"
-        android:label="CreateFragment" />
+        android:id="@+id/optionFragment"
+        android:name="ru.netology.nework.create.presentation.option.OptionFragment"
+        android:label="OptionFragment"
+        tools:layout="@layout/fragment_option" >
+        <action
+            android:id="@+id/action_optionFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+        <action
+            android:id="@+id/action_optionFragment_to_createEventFragment"
+            app:destination="@id/createEventFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="ru.netology.nework.create.presentation.create.post.CreatePostFragment"
+        tools:layout="@layout/fragment_create_post"
+        android:label="CreatePostFragment" >
+        <action
+            android:id="@+id/action_createPostFragment_to_successFragment"
+            app:destination="@id/successFragment"
+            app:popUpTo="@id/successFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createEventFragment"
+        android:name="ru.netology.nework.create.presentation.create.event.CreateEventFragment"
+        tools:layout="@layout/fragment_create_event"
+        android:label="CreateEventFragment" />
+
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="ru.netology.nework.create.presentation.success.SuccessFragment"
+        tools:layout="@layout/fragment_success" >
+        <argument
+            android:name="successType"
+            app:argType="ru.netology.nework.create.presentation.success.SuccessFragment$TypeSuccess" />
+        <action
+            android:id="@+id/action_successFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+    </fragment>
+
 </navigation>

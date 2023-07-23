@@ -2,8 +2,8 @@ package ru.netology.nework.events.presentation.events.adaprer
 
 import ru.netology.nework.R
 import ru.netology.nework.core.domain.entities.Attachment
+import ru.netology.nework.core.domain.entities.Event
 import ru.netology.nework.core.utils.ResourcesManager
-import ru.netology.nework.events.domain.entity.Event
 import javax.inject.Inject
 
 data class EventItem(
@@ -25,7 +25,7 @@ data class EventItem(
 class EventMapper @Inject constructor(
     private val resourcesManager: ResourcesManager
 ) {
-    fun mapEventToEventItem(event: Event): EventItem {
+    private fun mapEventToEventItem(event: Event): EventItem {
         return EventItem(
             id = event.id,
             authorId = event.authorId,
