@@ -12,14 +12,14 @@ interface AuthApi {
         @Body body: AuthenticationModelRequest
     ): AuthenticationModelResponse
 
-    @[FormUrlEncoded POST("/api/users/registration/")]
+    @[FormUrlEncoded POST("api/users/registration/")]
     suspend fun simpleRegistration(
         @Field("login") login: String,
         @Field("password") password: String,
         @Field("name") name: String
     ): AuthenticationModelResponse
 
-    @[Multipart POST("/api/users/registration/")]
+    @[Multipart POST("api/users/registration/")]
     suspend fun registrationWithPhoto(
         @Part("login") login: String,
         @Part("password") password: String,

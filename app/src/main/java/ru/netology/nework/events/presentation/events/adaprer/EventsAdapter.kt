@@ -62,6 +62,7 @@ class EventsAdapter(
                 tvDate.text = item.published
                 tvContent.text = item.content
                 tvLikeCount.text = item.likeCount.toString()
+                tvDateTime.text = binding.root.context.getString(R.string.event_data_time, item.published)
 
                 val likeIcon = if (item.likedByMe) R.drawable.ic_favorite_fill
                 else R.drawable.ic_favorite_empty

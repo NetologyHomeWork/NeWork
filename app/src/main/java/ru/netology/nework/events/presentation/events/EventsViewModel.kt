@@ -138,6 +138,15 @@ class EventsViewModel @Inject constructor(
         }
     }
 
+    fun updateEvent(eventId: Long, content: String) {
+        val mutable = mutableListOf<EventItem>().apply { addAll(eventsFlow.value) }
+        val index = mutable.indexOfFirst { it.id == eventId }
+        if (index == -1) return
+        val temp = mutable[index]
+        mutable[index] = temp.copy(content = content)
+        _eventsFlow.tryEmit(mutable)
+    }
+
     private suspend fun fillEventList() {
         val resource = getEventsUseCase.execute()
         when (resource) {

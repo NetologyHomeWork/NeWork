@@ -28,7 +28,7 @@ data class Attachment(
     val type: AttachmentType
 )
 
-enum class AttachmentType(type: String) {
+enum class AttachmentType(val type: String) {
     IMAGE("IMAGE"),
     VIDEO("VIDEO"),
     AUDIO("AUDIO");

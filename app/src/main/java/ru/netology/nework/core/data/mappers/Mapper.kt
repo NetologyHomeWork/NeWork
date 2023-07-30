@@ -1,12 +1,7 @@
 package ru.netology.nework.core.data.mappers
 
-import ru.netology.nework.core.data.dto.AttachmentDto
-import ru.netology.nework.core.data.dto.CoordinatesDto
-import ru.netology.nework.core.data.dto.PostDto
-import ru.netology.nework.core.domain.entities.Attachment
-import ru.netology.nework.core.domain.entities.AttachmentType
-import ru.netology.nework.core.domain.entities.Coordinates
-import ru.netology.nework.core.domain.entities.Post
+import ru.netology.nework.core.data.dto.*
+import ru.netology.nework.core.domain.entities.*
 import ru.netology.nework.core.utils.dateFormat
 
 fun PostDto.toPostEntity(): Post {
@@ -48,3 +43,40 @@ fun AttachmentDto?.toAttachmentEntity(): Attachment? {
         type = AttachmentType.parse(this.type)
     )
 }
+
+fun UserDataDto.toUserData(): UserData {
+    return UserData(
+        id = this.id,
+        login = this.login,
+        name = this.name,
+        avatar = this.avatar
+    )
+}
+
+fun JobDataDto.toJobData(): JobData {
+    return JobData(
+        id = this.id,
+        name = this.name,
+        position = this.position,
+        start = this.start,
+        finish = this.finish,
+        link = this.link
+    )
+}
+
+fun Attachment?.toDto(): AttachmentDto? {
+    if (this == null) return null
+    return AttachmentDto(
+        url = this.url,
+        type = this.type.type
+    )
+}
+
+fun Coordinates?.toDto(): CoordinatesDto? {
+    if (this == null) return null
+    return CoordinatesDto(
+        lat = this.lat,
+        long = this.long
+    )
+}
+

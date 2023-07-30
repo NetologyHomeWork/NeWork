@@ -2,8 +2,8 @@ package ru.netology.nework.posts.presentation.posts
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -12,6 +12,7 @@ import ru.netology.nework.R
 import ru.netology.nework.core.utils.observeWhenOnCreated
 import ru.netology.nework.core.utils.observeWhenOnStarted
 import ru.netology.nework.core.utils.viewBinding
+import ru.netology.nework.create.presentation.edit.post.EditPostFragment
 import ru.netology.nework.databinding.FragmentPostsBinding
 import ru.netology.nework.posts.presentation.posts.adapter.PostItem
 import ru.netology.nework.posts.presentation.posts.adapter.PostsAdapter
@@ -62,6 +63,14 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
         binding.threeStateView.setErrorButtonClickListener(viewModel::onRetryClick)
 
         binding.swipeRefresh.setOnRefreshListener(viewModel::onSwipeRefresh)
+
+        setFragmentResultListener(
+            EditPostFragment.SAVE_POST_REQ_KEY
+        ) { _, bundle ->
+            val postId = bundle.getLong(EditPostFragment.SAVE_POST_ID_KEY)
+            val content = bundle.getString(EditPostFragment.SAVE_POST_CONTENT_KEY, "")
+            viewModel.onPostUpdated(postId, content)
+        }
     }
 
     private fun setupView() {
@@ -87,8 +96,11 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
                 }
 
                 override fun onEditClick(post: PostItem) {
-                    // todo navigate when feature create will be done
-                    Toast.makeText(requireContext(), "Navigate to Create", Toast.LENGTH_SHORT).show()
+                    val direction = PostsFragmentDirections.actionPostsFragmentToEditPostFragment(
+                        postId = post.id,
+                        content = post.content
+                    )
+                    findNavController().navigate(direction)
                 }
             }
         )

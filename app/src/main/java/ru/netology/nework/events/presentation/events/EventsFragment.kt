@@ -3,6 +3,7 @@ package ru.netology.nework.events.presentation.events
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -11,6 +12,7 @@ import ru.netology.nework.R
 import ru.netology.nework.core.utils.observeWhenOnCreated
 import ru.netology.nework.core.utils.observeWhenOnStarted
 import ru.netology.nework.core.utils.viewBinding
+import ru.netology.nework.create.presentation.edit.event.EditEventFragment
 import ru.netology.nework.databinding.FragmentEventsBinding
 import ru.netology.nework.events.presentation.events.adaprer.EventItem
 import ru.netology.nework.events.presentation.events.adaprer.EventsAdapter
@@ -49,7 +51,12 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
                 }
 
                 override fun onEditClick(event: EventItem) {
-                    TODO("Not yet implemented")
+                    val direction = EventsFragmentDirections.actionEventsFragmentToEditEventFragment(
+                        eventId = event.id,
+                        content = event.content,
+                        dateTime = event.datetime
+                    )
+                    findNavController().navigate(direction)
                 }
             }
         )
@@ -86,5 +93,13 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
         binding.threeStateView.setErrorButtonClickListener(viewModel::onRetryClick)
 
         binding.swipeRefresh.setOnRefreshListener(viewModel::onSwipeRefresh)
+
+        setFragmentResultListener(
+            EditEventFragment.SAVE_EVENT_REQ_KEY
+        ) { _, bundle ->
+            val eventId = bundle.getLong(EditEventFragment.SAVE_EVENT_ID_KEY)
+            val content = bundle.getString(EditEventFragment.SAVE_EVENT_CONTENT_KEY, "")
+            viewModel.updateEvent(eventId, content)
+        }
     }
 }
