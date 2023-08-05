@@ -11,15 +11,41 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            tools:text="@string/date" />
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_event_type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="start"
+                android:layout_marginHorizontal="16dp"
+                android:hint="@string/choose_event_type">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_event_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:labelFor="@id/til_event_type" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="150dp"
+                android:gravity="center"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="16dp"
+                android:text="@string/choose_date" />
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -57,15 +83,6 @@
         android:contentDescription="@null"
         app:layout_anchor="@id/app_bar"
         app:srcCompat="@drawable/ic_done" />
-
-    <ImageButton
-        android:id="@+id/ib_calendar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="bottom"
-        android:contentDescription="@null"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_calendar" />
 
     <ru.netology.nework.core.presentation.view.ThreeStateView
         android:id="@+id/three_state_view"

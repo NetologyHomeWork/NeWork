@@ -42,4 +42,7 @@
     <string name="empty_event_content_error">Содержание события не может быть пустым</string>
     <string name="empty_date_error">Не выбрана дата проведения события</string>
     <string name="event_data_time">Дата проведения: %1$s</string>
+    <string name="choose_event_type">Выберите тип</string>
+    <string name="to_posts">Постов</string>
+    <string name="to_events">Событий</string>
 </resources>
