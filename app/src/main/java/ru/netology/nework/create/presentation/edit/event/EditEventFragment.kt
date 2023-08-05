@@ -47,7 +47,7 @@ class EditEventFragment : Fragment(R.layout.fragment_create_event) {
                 viewModel.editEvent(args.eventId, etEvent.text.toString(), tvDate.text.toString())
             }
 
-            ibCalendar.setOnClickListener {
+            tvDate.setOnClickListener {
                 showCalendarDialog(requireContext()) { date ->
                     tvDate.text = date
                 }

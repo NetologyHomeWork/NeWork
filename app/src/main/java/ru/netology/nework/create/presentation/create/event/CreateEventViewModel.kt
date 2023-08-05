@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.netology.nework.R
 import ru.netology.nework.core.domain.NetworkException
+import ru.netology.nework.core.domain.entities.EventType
 import ru.netology.nework.core.presentation.base.BaseViewModel
 import ru.netology.nework.core.presentation.base.Commands
 import ru.netology.nework.core.presentation.view.ThreeStateView
@@ -31,11 +32,11 @@ class CreateEventViewModel @Inject constructor(
     val treeStateFlow: StateFlow<ThreeStateView.State> = _threeStateFlow.asStateFlow()
     val commands: SharedFlow<CreateEventCommands> = _commands.asSharedFlow()
 
-    fun createEvent(content: String, date: String) {
+    fun createEvent(content: String, date: String, type: String) {
         viewModelScope.launch(dispatchers.IO) {
             _threeStateFlow.tryEmit(ThreeStateView.State.Loading)
             delay(ThreeStateView.DELAY_LOADING)
-            when (val resource = createEventUseCase.execute(content, date, null, null)) {
+            when (val resource = createEventUseCase.execute(content, date, EventType.parse(type), null)) {
                 is Resource.Success -> {
                     _commands.tryEmit(CreateEventCommands.NavigateToSuccess)
                 }

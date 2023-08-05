@@ -34,7 +34,11 @@
         android:id="@+id/createEventFragment"
         android:name="ru.netology.nework.create.presentation.create.event.CreateEventFragment"
         tools:layout="@layout/fragment_create_event"
-        android:label="CreateEventFragment" />
+        android:label="CreateEventFragment" >
+        <action
+            android:id="@+id/action_createEventFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/successFragment"

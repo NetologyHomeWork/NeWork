@@ -3,6 +3,7 @@ package ru.netology.nework.create.presentation.create.event
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,7 +12,6 @@ import ru.netology.nework.R
 import ru.netology.nework.core.utils.observeWhenOnCreated
 import ru.netology.nework.core.utils.showKeyboard
 import ru.netology.nework.core.utils.viewBinding
-import ru.netology.nework.create.presentation.create.post.CreatePostFragmentDirections
 import ru.netology.nework.create.presentation.success.SuccessFragment
 import ru.netology.nework.create.presentation.utils.showCalendarDialog
 import ru.netology.nework.databinding.FragmentCreateEventBinding
@@ -34,18 +34,26 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
     private fun setupView() {
         binding.etEvent.requestFocus()
         binding.etEvent.showKeyboard()
+
+        val items = resources.getStringArray(R.array.event_type)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_event_type, items)
+        binding.etEventType.setAdapter(adapter)
     }
 
     private fun setupListener() {
         with(binding) {
             fabSave.setOnClickListener {
-                viewModel.createEvent(etEvent.text.toString(), tvDate.text.toString())
+                viewModel.createEvent(etEvent.text.toString(), tvDate.text.toString(), etEventType.text.toString())
             }
 
-            ibCalendar.setOnClickListener {
+            tvDate.setOnClickListener {
                 showCalendarDialog(requireContext()) { date ->
                     tvDate.text = date
                 }
+            }
+
+            etEventType.setOnDismissListener {
+                tilEventType.clearFocus()
             }
         }
     }
@@ -59,8 +67,8 @@ class CreateEventFragment : Fragment(R.layout.fragment_create_event) {
                     showAlertDialog(command.message)
                 }
                 CreateEventViewModel.CreateEventCommands.NavigateToSuccess -> {
-                    val direction = CreatePostFragmentDirections
-                        .actionCreatePostFragmentToSuccessFragment(
+                    val direction = CreateEventFragmentDirections
+                        .actionCreateEventFragmentToSuccessFragment(
                             successType = SuccessFragment.TypeSuccess.EventSuccess
                         )
                     findNavController().navigate(direction)
