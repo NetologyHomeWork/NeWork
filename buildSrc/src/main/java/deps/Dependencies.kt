@@ -60,8 +60,8 @@ object Dependencies {
         const val fragmentVersion = "1.6.0"
         const val activityVersion = "1.7.2"
 
-        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.6.0"
-        const val activityKtx = "androidx.activity:activity-ktx:1.7.2"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:$fragmentVersion"
+        const val activityKtx = "androidx.activity:activity-ktx:$activityVersion"
     }
 
     object NavDeps {

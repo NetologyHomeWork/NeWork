@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.nework.R
+import ru.netology.nework.core.utils.extractUnixTimestampOrNull
 import ru.netology.nework.core.utils.observeWhenOnCreated
 import ru.netology.nework.core.utils.showKeyboard
 import ru.netology.nework.core.utils.viewBinding
@@ -48,9 +49,13 @@ class EditEventFragment : Fragment(R.layout.fragment_create_event) {
             }
 
             tvDate.setOnClickListener {
-                showCalendarDialog(requireContext()) { date ->
-                    tvDate.text = date
-                }
+                showCalendarDialog(
+                    context = requireContext(),
+                    data = tvDate.extractUnixTimestampOrNull(),
+                    onDateChose = { date ->
+                        tvDate.text = date
+                    }
+                )
             }
         }
     }

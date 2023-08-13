@@ -8,6 +8,7 @@ plugins {
     id(deps.FeaturePlugins.kotlinxSerialization)
     id(deps.FeaturePlugins.safeArgs)
     id(deps.FeaturePlugins.hiltAndroid)
+    id(deps.FeaturePlugins.korlinParcelize)
 }
 
 @Suppress("UnstableApiUsage")

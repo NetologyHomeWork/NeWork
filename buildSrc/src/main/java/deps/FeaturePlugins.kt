@@ -7,4 +7,5 @@ object FeaturePlugins {
     const val kotlinxSerialization = "kotlinx-serialization"
     const val safeArgs = "androidx.navigation.safeargs.kotlin"
     const val hiltAndroid  = "com.google.dagger.hilt.android"
+    const val korlinParcelize  = "kotlin-parcelize"
 }

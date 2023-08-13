@@ -10,4 +10,6 @@ interface SettingsDataSource {
     fun setAuth(authModel: AuthModel)
 
     fun getAuth(): AuthModel?
+
+    fun logout()
 }
