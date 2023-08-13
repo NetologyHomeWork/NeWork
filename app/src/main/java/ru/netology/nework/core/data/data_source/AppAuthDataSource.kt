@@ -46,6 +46,12 @@ class AppAuthDataSource @Inject constructor(
         }
     }
 
+    override fun logout() {
+        prefs.edit {
+            remove(AUTH_KEY)
+        }
+    }
+
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         _authFlow.tryEmit(getAuth())
     }

@@ -64,6 +64,21 @@ fun JobDataDto.toJobData(): JobData {
     )
 }
 
+fun JobData.toJobDataDto(): JobDataDto {
+    return JobDataDto(
+        id = this.id,
+        name = this.name,
+        position = this.position,
+        start = this.start,
+        finish = this.finish,
+        link = this.link
+    )
+}
+
+fun List<JobDataDto>.toJobList(): List<JobData> {
+    return this.map { it.toJobData() }
+}
+
 fun Attachment?.toDto(): AttachmentDto? {
     if (this == null) return null
     return AttachmentDto(
