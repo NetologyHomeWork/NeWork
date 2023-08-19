@@ -145,6 +145,19 @@ class PostsViewModel @Inject constructor(
         _postsFlow.tryEmit(mutable)
     }
 
+    fun likeUpdated(postId: Long, isLike: Boolean, likeCount: Int) {
+        val mutable = mutableListOf<PostItem>().apply { addAll(postsFlow.value) }
+        val index = mutable.indexOfFirst { it.id == postId }
+        if (index == -1) return
+        val temp = mutable[index]
+        mutable[index] = temp.copy(likedByMe = isLike, likeCount = likeCount)
+        _postsFlow.tryEmit(mutable)
+    }
+
+    fun onPostDeleted(postId: Long) {
+        removePost(postId)
+    }
+
     private suspend fun fillPostList() {
         delay(ThreeStateView.DELAY_LOADING)
         when (val resource = getPostsUseCase.execute()) {
@@ -152,6 +165,7 @@ class PostsViewModel @Inject constructor(
                 _postsFlow.tryEmit(resource.data.toListPostItem())
                 _threeStateFlow.tryEmit(ThreeStateView.State.Content)
             }
+
             is Resource.Error -> {
                 when (resource.cause) {
                     is NetworkException -> {

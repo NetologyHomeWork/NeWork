@@ -11,6 +11,7 @@ fun Post.toPostItem(): PostItem {
         authorAvatar = this.authorAvatar,
         content = this.content,
         published = this.published,
+        coords = this.coords,
         likeCount = this.likeOwnerIds.size,
         likedByMe = this.likedByMe,
         attachment = this.attachment,

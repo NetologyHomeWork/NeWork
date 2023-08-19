@@ -64,4 +64,7 @@
     <string name="set">Установить</string>
     <string name="error_job_finished">Не задано поле даты окончания работы, либо отметьте галочкой, что вы в данный момент работаете на этой позиции</string>
     <string name="error_wrong_date_range">Не правильный формат выбора даты, дата начала работы, должна быть раньше чем дата окончания</string>
+    <string name="in_map">На карте</string>
+    <string name="coordinate_geo">geo:%1$s,%2$s</string>
+    <string name="absence_app">Отсутствует приложение для открытия карт</string>
 </resources>
