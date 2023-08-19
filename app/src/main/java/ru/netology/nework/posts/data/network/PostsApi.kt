@@ -25,4 +25,9 @@ interface PostsApi {
     suspend fun deletePost(
         @Path("post_id") postId: Long
     )
+
+    @GET("api/posts/{post_id}/")
+    suspend fun getPostById(
+        @Path("post_id") postId: Long
+    ) : PostDto
 }

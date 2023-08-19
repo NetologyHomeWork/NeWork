@@ -1,5 +1,6 @@
 package ru.netology.nework.posts.presentation.posts
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import ru.netology.nework.core.utils.observeWhenOnStarted
 import ru.netology.nework.core.utils.viewBinding
 import ru.netology.nework.create.presentation.edit.post.EditPostFragment
 import ru.netology.nework.databinding.FragmentPostsBinding
+import ru.netology.nework.posts.presentation.detail.PostDetailFragment
 import ru.netology.nework.posts.presentation.posts.adapter.PostItem
 import ru.netology.nework.posts.presentation.posts.adapter.PostsAdapter
 
@@ -70,6 +72,21 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
             val postId = bundle.getLong(EditPostFragment.SAVE_POST_ID_KEY)
             val content = bundle.getString(EditPostFragment.SAVE_POST_CONTENT_KEY, "")
             viewModel.onPostUpdated(postId, content)
+        }
+
+        setFragmentResultListener(PostDetailFragment.LIKE_RESULT_REQ_KEY) { _, bundle ->
+            val likeResult = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                bundle.getParcelable(PostDetailFragment.LIKE_RESULT_BUNDLE_KEY, PostDetailFragment.LikeResult::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                bundle.getParcelable(PostDetailFragment.LIKE_RESULT_BUNDLE_KEY)
+            } ?: return@setFragmentResultListener
+            viewModel.likeUpdated(likeResult.postId, likeResult.isLike, likeResult.likeCount)
+        }
+
+        setFragmentResultListener(PostDetailFragment.DELETE_RESULT_REQ_KEY) { _, bundle ->
+            val postId = bundle.getLong(PostDetailFragment.DELETE_RESULT_BUNDLE_KEY, 0L)
+            viewModel.onPostDeleted(postId)
         }
     }
 

@@ -38,4 +38,10 @@ class PostsRepositoryImpl @Inject constructor(
             postsApi.deletePost(postId)
         }
     }
+
+    override suspend fun getPostById(postId: Long): Resource<Post> {
+        return wrapServerException {
+            postsApi.getPostById(postId).toPostEntity()
+        }
+    }
 }
