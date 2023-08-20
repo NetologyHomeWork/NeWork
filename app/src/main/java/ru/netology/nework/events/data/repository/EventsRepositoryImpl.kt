@@ -33,9 +33,15 @@ class EventsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deletePost(eventId: Long): Resource<Unit> {
+    override suspend fun deleteEvent(eventId: Long): Resource<Unit> {
         return wrapServerException {
             eventsApi.deleteEvent(eventId)
+        }
+    }
+
+    override suspend fun getEventById(eventId: Long): Resource<Event> {
+        return wrapServerException {
+            eventsApi.getEventById(eventId).toEvent()
         }
     }
 }

@@ -1,5 +1,6 @@
 package ru.netology.nework.events.presentation.events
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import ru.netology.nework.core.utils.observeWhenOnStarted
 import ru.netology.nework.core.utils.viewBinding
 import ru.netology.nework.create.presentation.edit.event.EditEventFragment
 import ru.netology.nework.databinding.FragmentEventsBinding
+import ru.netology.nework.events.presentation.detail.EventDetailFragment
 import ru.netology.nework.events.presentation.events.adaprer.EventItem
 import ru.netology.nework.events.presentation.events.adaprer.EventsAdapter
 
@@ -47,14 +49,15 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
                 }
 
                 override fun onDeleteClick(eventId: Long) {
-                    viewModel.onDeletePostClick(eventId)
+                    viewModel.onDeleteEventClick(eventId)
                 }
 
                 override fun onEditClick(event: EventItem) {
                     val direction = EventsFragmentDirections.actionEventsFragmentToEditEventFragment(
                         eventId = event.id,
                         content = event.content,
-                        dateTime = event.datetime
+                        dateTime = event.datetime,
+                        type = event.type
                     )
                     findNavController().navigate(direction)
                 }
@@ -100,6 +103,21 @@ class EventsFragment : Fragment(R.layout.fragment_events) {
             val eventId = bundle.getLong(EditEventFragment.SAVE_EVENT_ID_KEY)
             val content = bundle.getString(EditEventFragment.SAVE_EVENT_CONTENT_KEY, "")
             viewModel.updateEvent(eventId, content)
+        }
+
+        setFragmentResultListener(EventDetailFragment.LIKE_EVENT_RESULT_REQ_KEY) { _, bundle ->
+            val likeResult = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                bundle.getParcelable(EventDetailFragment.LIKE_EVENT_RESULT_BUNDLE_KEY, EventDetailFragment.LikeEventResult::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                bundle.getParcelable(EventDetailFragment.LIKE_EVENT_RESULT_BUNDLE_KEY)
+            } ?: return@setFragmentResultListener
+            viewModel.likeUpdated(likeResult.eventId, likeResult.isLike, likeResult.likeCount)
+        }
+
+        setFragmentResultListener(EventDetailFragment.DELETE_EVENT_RESULT_REQ_KEY) { _, bundle ->
+            val eventId = bundle.getLong(EventDetailFragment.DELETE_EVENT_RESULT_BUNDLE_KEY, 0L)
+            viewModel.onEventDeleted(eventId)
         }
     }
 }

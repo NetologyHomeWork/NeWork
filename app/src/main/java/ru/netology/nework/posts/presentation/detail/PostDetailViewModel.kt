@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,33 +42,7 @@ class PostDetailViewModel @AssistedInject constructor(
 
     init {
         viewModelScope.launch(dispatchers.IO) {
-            _threeStateFlow.tryEmit(ThreeStateView.State.Loading)
-            when (val resource = getPostByIdUseCase.execute(postId)) {
-                is Resource.Success -> {
-                    _postFlow.tryEmit(resource.data.toPostItem())
-                    _threeStateFlow.tryEmit(ThreeStateView.State.Content)
-                }
-
-                is Resource.Error -> {
-                    when (resource.cause) {
-                        is NetworkException -> {
-                            _threeStateFlow.tryEmit(
-                                ThreeStateView.State.Error(
-                                    resourcesManager.getString(R.string.error_network_connection)
-                                )
-                            )
-                        }
-
-                        else -> {
-                            _threeStateFlow.tryEmit(
-                                ThreeStateView.State.Error(
-                                    resourcesManager.getString(R.string.error_server_connection)
-                                )
-                            )
-                        }
-                    }
-                }
-            }
+            fillPostScreen()
         }
     }
 
@@ -85,7 +60,6 @@ class PostDetailViewModel @AssistedInject constructor(
 
     fun onLikeClick() {
         viewModelScope.launch(dispatchers.IO) {
-            val postId = _postFlow.value?.id ?: return@launch
             val isLike = _postFlow.value?.likedByMe ?: return@launch
             val likeCount = _postFlow.value?.likeCount ?: return@launch
             _postFlow.tryEmit(
@@ -127,14 +101,26 @@ class PostDetailViewModel @AssistedInject constructor(
     }
 
     fun onBackPressedClick() {
-        val postId = _postFlow.value?.id ?: return
-        val isLike = _postFlow.value?.likedByMe ?: return
-        val likeCount = _postFlow.value?.likeCount ?: return
-        _commands.tryEmit(PostDetailCommands.NavigateOnBackPressed(postId, isLike, likeCount))
+        val isLike = _postFlow.value?.likedByMe ?: run {
+            _commands.tryEmit(PostDetailCommands.NavigateOnBackPressed(null))
+            return
+        }
+        val likeCount = _postFlow.value?.likeCount ?: run {
+            _commands.tryEmit(PostDetailCommands.NavigateOnBackPressed(null))
+            return
+        }
+        _commands.tryEmit(
+            PostDetailCommands.NavigateOnBackPressed(
+                PostDetailFragment.LikePostResult(
+                    postId = postId,
+                    isLike = isLike,
+                    likeCount = likeCount
+                )
+            )
+        )
     }
 
     fun onEditClick() {
-        val postId = _postFlow.value?.id ?: return
         val content = _postFlow.value?.content ?: return
         _commands.tryEmit(
             PostDetailCommands.NavigateToEditPost(
@@ -145,9 +131,9 @@ class PostDetailViewModel @AssistedInject constructor(
     }
 
     fun onDeleteClick() {
-        val postId = _postFlow.value?.id ?: return
         viewModelScope.launch(dispatchers.IO) {
             _threeStateFlow.tryEmit(ThreeStateView.State.Loading)
+            delay(ThreeStateView.DELAY_LOADING)
             when (val resource = deletePostUseCase.execute(postId)) {
                 is Resource.Success -> {
                     _commands.tryEmit(PostDetailCommands.NavigateUpWhenPostDeleted(postId))
@@ -173,6 +159,7 @@ class PostDetailViewModel @AssistedInject constructor(
                     }
                 }
             }
+            _threeStateFlow.tryEmit(ThreeStateView.State.Content)
         }
     }
 
@@ -181,13 +168,48 @@ class PostDetailViewModel @AssistedInject constructor(
         _postFlow.tryEmit(post)
     }
 
+    fun onRetryClick() {
+        viewModelScope.launch(dispatchers.IO) {
+            fillPostScreen()
+        }
+    }
+
+    private suspend fun fillPostScreen() {
+        _threeStateFlow.tryEmit(ThreeStateView.State.Loading)
+        delay(ThreeStateView.DELAY_LOADING)
+        when (val resource = getPostByIdUseCase.execute(postId)) {
+            is Resource.Success -> {
+                _postFlow.tryEmit(resource.data.toPostItem())
+                _threeStateFlow.tryEmit(ThreeStateView.State.Content)
+            }
+
+            is Resource.Error -> {
+                when (resource.cause) {
+                    is NetworkException -> {
+                        _threeStateFlow.tryEmit(
+                            ThreeStateView.State.Error(
+                                resourcesManager.getString(R.string.error_network_connection)
+                            )
+                        )
+                    }
+
+                    else -> {
+                        _threeStateFlow.tryEmit(
+                            ThreeStateView.State.Error(
+                                resourcesManager.getString(R.string.error_server_connection)
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     sealed interface PostDetailCommands : Commands {
         class OpenUrl(val url: String) : PostDetailCommands
         class ShowSnackbar(val message: String) : PostDetailCommands
         class NavigateOnBackPressed(
-            val postId: Long,
-            val isLike: Boolean,
-            val likeCount: Int
+            val likeResult: PostDetailFragment.LikePostResult?
         ) : PostDetailCommands
 
         class NavigateToEditPost(val postId: Long, val content: String) : PostDetailCommands

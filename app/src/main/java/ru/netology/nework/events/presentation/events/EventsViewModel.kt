@@ -110,13 +110,13 @@ class EventsViewModel @Inject constructor(
         }
     }
 
-    fun onDeletePostClick(eventID: Long) {
+    fun onDeleteEventClick(eventId: Long) {
         viewModelScope.launch(dispatchers.IO) {
-            updateDelete(eventID, true)
-            when (val resource = deleteEventUseCase.execute(eventID)) {
-                is Resource.Success -> removeEvent(eventID)
+            updateDelete(eventId, true)
+            when (val resource = deleteEventUseCase.execute(eventId)) {
+                is Resource.Success -> removeEvent(eventId)
                 is Resource.Error -> {
-                    updateDelete(eventID, false)
+                    updateDelete(eventId, false)
                     when (resource.cause) {
                         is NetworkException -> {
                             _commands.tryEmit(
@@ -147,9 +147,17 @@ class EventsViewModel @Inject constructor(
         _eventsFlow.tryEmit(mutable)
     }
 
+    fun likeUpdated(eventId: Long, isLike: Boolean, likeCount: Int) {
+        val mutable = mutableListOf<EventItem>().apply { addAll(eventsFlow.value) }
+        val index = mutable.indexOfFirst { it.id == eventId }
+        if (index == -1) return
+        val temp = mutable[index]
+        mutable[index] = temp.copy(likedByMe = isLike, likeCount = likeCount)
+        _eventsFlow.tryEmit(mutable)
+    }
+
     private suspend fun fillEventList() {
-        val resource = getEventsUseCase.execute()
-        when (resource) {
+        when (val resource = getEventsUseCase.execute()) {
             is Resource.Success -> {
                 _eventsFlow.tryEmit(
                     mapper.mapListEventToListEventItem(resource.data)
@@ -205,6 +213,10 @@ class EventsViewModel @Inject constructor(
         if (index == -1) return
         mutable.removeAt(index)
         _eventsFlow.tryEmit(mutable)
+    }
+
+    fun onEventDeleted(eventId: Long) {
+        removeEvent(eventId)
     }
 
     sealed interface EventsCommand : Commands {

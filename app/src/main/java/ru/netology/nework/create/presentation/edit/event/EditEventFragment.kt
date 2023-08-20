@@ -3,6 +3,7 @@ package ru.netology.nework.create.presentation.edit.event
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -39,7 +40,12 @@ class EditEventFragment : Fragment(R.layout.fragment_create_event) {
         binding.etEvent.requestFocus()
         binding.etEvent.setText(args.content)
         binding.tvDate.text = args.dateTime
+        binding.etEventType.setText(args.type)
         binding.etEvent.showKeyboard()
+
+        val items = resources.getStringArray(R.array.event_type)
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_event_type, items)
+        binding.etEventType.setAdapter(adapter)
     }
 
     private fun setupListener() {

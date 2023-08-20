@@ -7,7 +7,7 @@ import javax.inject.Inject
 class DeleteEventUseCase @Inject constructor(
     private val eventsRepository: EventsRepository
 ) {
-    suspend fun execute(postId: Long): Resource<Unit> {
-        return eventsRepository.deletePost(postId)
+    suspend fun execute(eventId: Long): Resource<Unit> {
+        return eventsRepository.deleteEvent(eventId)
     }
 }

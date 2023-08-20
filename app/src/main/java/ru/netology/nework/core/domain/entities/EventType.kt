@@ -1,6 +1,6 @@
 package ru.netology.nework.core.domain.entities
 
-enum class EventType(type: String) {
+enum class EventType(val typeEvent: String) {
     OFFLINE("OFFLINE"),
     ONLINE("ONLINE");
 

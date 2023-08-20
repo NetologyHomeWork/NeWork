@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:context=".posts.presentation.posts.PostsFragment"
-            tools:listitem="@layout/item_post" />
+            tools:listitem="@layout/item_event" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
