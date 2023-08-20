@@ -79,9 +79,9 @@ class PostDetailFragment : Fragment(R.layout.fragment_post_detail) {
                 tvInMap.isVisible = post.coords != null
                 ivMore.isVisible = post.ownedByMe
             }
-
-            binding.threeStateView.observeStateView(viewModel.threeStateFlow, viewLifecycleOwner)
         }
+
+        binding.threeStateView.observeStateView(viewModel.threeStateFlow, viewLifecycleOwner)
 
         viewModel.commands.observeWhenOnCreated(viewLifecycleOwner) { command ->
             when (command) {
@@ -105,13 +105,9 @@ class PostDetailFragment : Fragment(R.layout.fragment_post_detail) {
 
                 is PostDetailViewModel.PostDetailCommands.NavigateOnBackPressed -> {
                     setFragmentResult(
-                        LIKE_RESULT_REQ_KEY,
+                        LIKE_POST_RESULT_REQ_KEY,
                         bundleOf(
-                            LIKE_RESULT_BUNDLE_KEY to LikeResult(
-                                postId = command.postId,
-                                isLike = command.isLike,
-                                likeCount = command.likeCount
-                            )
+                            LIKE_POST_RESULT_BUNDLE_KEY to command.likeResult
                         )
                     )
                     findNavController().navigateUp()
@@ -125,8 +121,8 @@ class PostDetailFragment : Fragment(R.layout.fragment_post_detail) {
 
                 is PostDetailViewModel.PostDetailCommands.NavigateUpWhenPostDeleted -> {
                     setFragmentResult(
-                        DELETE_RESULT_REQ_KEY,
-                        bundleOf(DELETE_RESULT_BUNDLE_KEY to command.postId)
+                        DELETE_POST_RESULT_REQ_KEY,
+                        bundleOf(DELETE_POST_RESULT_BUNDLE_KEY to command.postId)
                     )
                     findNavController().navigateUp()
                 }
@@ -155,6 +151,10 @@ class PostDetailFragment : Fragment(R.layout.fragment_post_detail) {
             val content = bundle.getString(EditPostFragment.SAVE_POST_CONTENT_KEY, "")
            viewModel.onPostUpdated(content)
         }
+
+        binding.threeStateView.setErrorButtonClickListener {
+            viewModel.onRetryClick()
+        }
     }
 
     private fun showPopup() {
@@ -178,16 +178,16 @@ class PostDetailFragment : Fragment(R.layout.fragment_post_detail) {
     }
 
     @Parcelize
-    data class LikeResult(
+    data class LikePostResult(
         val postId: Long,
         val isLike: Boolean,
         val likeCount: Int
     ) : Parcelable
 
     companion object {
-        const val LIKE_RESULT_REQ_KEY = "LIKE_RESULT_REQ_KEY"
-        const val LIKE_RESULT_BUNDLE_KEY = "LIKE_RESULT_BUNDLE_KEY"
-        const val DELETE_RESULT_REQ_KEY = "DELETE_RESULT_REQ_KEY"
-        const val DELETE_RESULT_BUNDLE_KEY = "DELETE_RESULT_BUNDLE_KEY"
+        const val LIKE_POST_RESULT_REQ_KEY = "LIKE_RESULT_REQ_KEY"
+        const val LIKE_POST_RESULT_BUNDLE_KEY = "LIKE_RESULT_BUNDLE_KEY"
+        const val DELETE_POST_RESULT_REQ_KEY = "DELETE_RESULT_REQ_KEY"
+        const val DELETE_POST_RESULT_BUNDLE_KEY = "DELETE_RESULT_BUNDLE_KEY"
     }
 }

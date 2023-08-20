@@ -28,6 +28,9 @@
         <argument
             android:name="eventId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_eventDetailFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
     </fragment>
 
     <fragment
@@ -46,6 +49,9 @@
 
         <argument
             android:name="dateTime"
+            app:argType="string" />
+        <argument
+            android:name="type"
             app:argType="string" />
     </fragment>
 </navigation>

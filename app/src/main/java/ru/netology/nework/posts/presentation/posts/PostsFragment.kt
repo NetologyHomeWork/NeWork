@@ -74,18 +74,18 @@ class PostsFragment : Fragment(R.layout.fragment_posts) {
             viewModel.onPostUpdated(postId, content)
         }
 
-        setFragmentResultListener(PostDetailFragment.LIKE_RESULT_REQ_KEY) { _, bundle ->
+        setFragmentResultListener(PostDetailFragment.LIKE_POST_RESULT_REQ_KEY) { _, bundle ->
             val likeResult = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                bundle.getParcelable(PostDetailFragment.LIKE_RESULT_BUNDLE_KEY, PostDetailFragment.LikeResult::class.java)
+                bundle.getParcelable(PostDetailFragment.LIKE_POST_RESULT_BUNDLE_KEY, PostDetailFragment.LikePostResult::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                bundle.getParcelable(PostDetailFragment.LIKE_RESULT_BUNDLE_KEY)
+                bundle.getParcelable(PostDetailFragment.LIKE_POST_RESULT_BUNDLE_KEY)
             } ?: return@setFragmentResultListener
             viewModel.likeUpdated(likeResult.postId, likeResult.isLike, likeResult.likeCount)
         }
 
-        setFragmentResultListener(PostDetailFragment.DELETE_RESULT_REQ_KEY) { _, bundle ->
-            val postId = bundle.getLong(PostDetailFragment.DELETE_RESULT_BUNDLE_KEY, 0L)
+        setFragmentResultListener(PostDetailFragment.DELETE_POST_RESULT_REQ_KEY) { _, bundle ->
+            val postId = bundle.getLong(PostDetailFragment.DELETE_POST_RESULT_BUNDLE_KEY, 0L)
             viewModel.onPostDeleted(postId)
         }
     }

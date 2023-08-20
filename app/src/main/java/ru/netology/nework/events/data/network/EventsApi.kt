@@ -25,4 +25,9 @@ interface EventsApi {
     suspend fun deleteEvent(
         @Path("event_id") eventId: Long
     )
+
+    @GET("api/events/{event_id}/")
+    suspend fun getEventById(
+        @Path("event_id") eventId: Long
+    ): EventDto
 }
