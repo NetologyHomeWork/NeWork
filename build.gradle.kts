@@ -1,18 +1,9 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    dependencies {
-        classpath(deps.Plugins.safeArgs)
-        classpath(deps.Plugins.gradlePlugin)
-    }
-    repositories {
-        mavenCentral()
-    }
-}
-
 plugins {
-    id(deps.Plugins.application) version deps.Plugins.Version.applicationVersion apply false
-    id(deps.Plugins.androidlibrary) version deps.Plugins.Version.androidlibraryVersion apply false
-    id(deps.Plugins.kotlinAndroid) version deps.Plugins.Version.kotlinAndroidVersion apply false
-    id(deps.Plugins.daggerHilt) version deps.Plugins.Version.daggerHiltVersion apply false
-    kotlin(deps.Plugins.serialization) version deps.Plugins.Version.serializationVersion apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.androidx.navigation.safe.args) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.jetbrains.kotlin.android) apply false
+    alias(libs.plugins.google.dagger.hilt.android) apply false
+    alias(libs.plugins.jetbrains.kotlin.plugin.serialization) apply false
+    alias(libs.plugins.google.devtools.ksp) apply false
 }

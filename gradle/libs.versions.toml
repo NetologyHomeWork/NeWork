@@ -1,0 +1,81 @@
+[versions]
+applicationId = "ru.netology.nework"
+minSdk = "24"
+targetSdk = "34"
+compileSdk = "34"
+versionCode = "1"
+versionName = "1.0"
+
+navVersion = "2.7.7"
+applicationVersion = "8.2.2"
+kotlinVersion = "1.9.22"
+lifecycleVersion = "2.7.0"
+hiltVersion = "2.50"
+okHttpVersion = "4.12.0"
+kspVersion = "1.9.22-1.0.17"
+espressoVersion = "3.5.1"
+
+[plugins]
+androidx-navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navVersion" }
+android-application = { id = "com.android.application", version.ref = "applicationVersion" }
+android-library = { id = "com.android.library", version.ref = "applicationVersion" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
+google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
+jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
+
+[libraries]
+androidx-core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
+google-android-material = { module = "com.google.android.material:material", version = "1.11.0" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
+
+# Retrofit
+squareup-retrofit2 = { module = "com.squareup.retrofit2:retrofit", version = "2.9.0" }
+retrofit-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version = "1.0.0" }
+
+# OkHttp
+squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okHttpVersion" }
+squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttpVersion" }
+
+# Lifecycle
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleVersion" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
+
+# Activity, Fragment ktx
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version = "1.6.2" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version = "1.8.2" }
+
+# Navigation Component
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navVersion" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navVersion" }
+
+# Hilt
+google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
+google-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion" }
+
+# Coil
+coil-kt = { module = "io.coil-kt:coil", version = "2.5.0" }
+
+# Swipe Refresh
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version = "1.1.0" }
+
+# Kotlin Serialization
+jetbrains-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.5.1" }
+
+# Image Picker
+github-dhaval2404-imagepicker = { module = "com.github.dhaval2404:imagepicker", version = "2.1" }
+
+# -------------------------------------------TEST---------------------------------------------------
+
+junit = { module = "junit:junit", version = "4.13.2" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version = "1.1.5" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoVersion" }
+
+# -------------------------------------------TEST---------------------------------------------------
+
+[bundles]
+retrofit = ["squareup-retrofit2", "retrofit-kotlinx-serialization-converter"]
+okHttp3 = ["squareup-okhttp3", "squareup-okhttp3-logging-interceptor"]
+lifecycle = ["androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-ktx"]
+navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]
