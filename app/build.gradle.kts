@@ -1,27 +1,25 @@
-import deps.DefaultConfigs
-import deps.Dependencies
+import com.android.build.api.dsl.VariantDimension
 
 plugins {
-    id(deps.FeaturePlugins.androidApplication)
-    kotlin(deps.FeaturePlugins.kotlinAndroid)
-    kotlin(deps.FeaturePlugins.kotlinKapt)
-    id(deps.FeaturePlugins.kotlinxSerialization)
-    id(deps.FeaturePlugins.safeArgs)
-    id(deps.FeaturePlugins.hiltAndroid)
-    id(deps.FeaturePlugins.korlinParcelize)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.androidx.navigation.safe.args)
+    alias(libs.plugins.google.dagger.hilt.android)
+    alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
+    id("kotlin-parcelize")
 }
 
-@Suppress("UnstableApiUsage")
 android {
-    namespace = "ru.netology.nework"
-    compileSdk = 33
+    namespace = libs.versions.applicationId.get()
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = DefaultConfigs.applicationId
-        minSdk = DefaultConfigs.minSdk
-        targetSdk = DefaultConfigs.targetSdk
-        versionCode = DefaultConfigs.versionCode
-        versionName = DefaultConfigs.versionName
+        applicationId = libs.versions.applicationId.get()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,16 +30,16 @@ android {
             isShrinkResources = true
             isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", DefaultConfigs.baseUrl, DefaultConfigs.baseUrlValue)
-            buildConfigField("boolean", DefaultConfigs.isLogEnabled, "false")
+            buildConfigField(getProperty(PropertyValues.BASE_URL), getProperty(PropertyValues.BASE_URL_VALUE))
+            buildConfigField(getProperty(PropertyValues.IS_LOG_ENABLED), false)
         }
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
             isDebuggable = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", DefaultConfigs.baseUrl, DefaultConfigs.baseUrlValue)
-            buildConfigField("boolean", DefaultConfigs.isLogEnabled, "true")
+            buildConfigField(getProperty(PropertyValues.BASE_URL), getProperty(PropertyValues.BASE_URL_VALUE))
+            buildConfigField(getProperty(PropertyValues.IS_LOG_ENABLED), false)
         }
     }
     compileOptions {
@@ -54,45 +52,61 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 dependencies {
 
-    implementation(Dependencies.InitialDeps.coreKtx)
-    implementation(Dependencies.InitialDeps.appCompat)
-    implementation(Dependencies.InitialDeps.material)
-    implementation(Dependencies.InitialDeps.constraintlayout)
-    testImplementation(Dependencies.InitialDeps.junit)
-    androidTestImplementation(Dependencies.InitialDeps.extJunit)
-    androidTestImplementation(Dependencies.InitialDeps.espresso)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.android.material)
+    implementation(libs.androidx.constraintlayout)
 
-    implementation(Dependencies.RetrofitDeps.retrofit)
-    implementation(Dependencies.RetrofitDeps.kotlinSerialization)
+    implementation(libs.bundles.retrofit)
 
-    implementation(Dependencies.LifecycleDeps.lifecycleRuntimeKtx)
-    implementation(Dependencies.LifecycleDeps.lifecycleViewModelKtx)
+    implementation(libs.bundles.lifecycle)
 
-    implementation(Dependencies.HiltDeps.hilt)
-    kapt(Dependencies.HiltDeps.hiltCompiler)
+    implementation(libs.google.dagger.hilt.android)
+    ksp(libs.google.dagger.hilt.compiler)
 
-    implementation(platform(Dependencies.OkHttpDeps.okHttpBom))
-    implementation(Dependencies.OkHttpDeps.okHttp)
-    implementation(Dependencies.OkHttpDeps.loggingInterceptor)
+    implementation(libs.bundles.okHttp3)
 
-    implementation(Dependencies.CoilDeps.coil)
+    implementation(libs.coil.kt)
 
-    implementation(Dependencies.ActivityFragmentKtxDeps.fragmentKtx)
-    implementation(Dependencies.ActivityFragmentKtxDeps.activityKtx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
 
-    implementation(Dependencies.NavDeps.navFragmentKtx)
-    implementation(Dependencies.NavDeps.uiKtx)
+    implementation(libs.bundles.navigation)
 
-    implementation(Dependencies.SerializationDeps.serialization)
-    implementation(Dependencies.ImagePickerDeps.imagePicker)
-    implementation(Dependencies.SwipeRefreshLayout.swipeRefresh)
+    implementation(libs.jetbrains.kotlinx.serialization.json)
+    implementation(libs.github.dhaval2404.imagepicker)
+    implementation(libs.androidx.swiperefreshlayout)
+
+    testImplementation(libs.junit)
+
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+}
+
+inline fun <reified T> VariantDimension.buildConfigField(
+    name: String,
+    value: T
+) {
+    @Suppress("IMPLICIT_CAST_TO_ANY")
+    val resolveValue = when (value) {
+        is String -> "\"$value\""
+        else -> value
+    }.toString()
+    buildConfigField(T::class.java.simpleName, name, resolveValue)
+}
+
+fun getProperty(propertyName: String): String {
+    return project.properties[propertyName].toString()
+}
+
+object PropertyValues {
+    const val BASE_URL = "BASE_URL"
+    const val BASE_URL_VALUE = "BASE_URL_VALUE"
+    const val IS_LOG_ENABLED = "IS_LOG_ENABLED"
 }
